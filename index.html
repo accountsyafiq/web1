@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Kita 💕</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== FIX AGAR TIDAK KEpotong DI HP ===== */
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ===== LOGIN PAGE ===== */
+    #loginPage {
+      width: 90%;
+      max-width: 330px;
+      margin: auto;
+      margin-top: 60px;
+      background: rgba(255,255,255,0.9);
+      padding: 35px;
+      border-radius: 20px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    }
+
+    #loginPage h2 { 
+      color: #e75480;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      background: #e75480;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover { background: #ff99b8; }
+
+    #errorMsg {
+      color: red;
+      display: none;
+      margin-top: 5px;
+    }
+
+    /* ===== HALAMAN LAIN ===== */
+    section {
+      display: none;
+      text-align: center;
+      width: 100%;
+      min-height: 100vh;
+      padding-bottom: 80px;
+      position: relative;
+      transition: 0.4s;
+    }
+
+    #mainPage { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
+    #page3    { background: linear-gradient(135deg, #ffd6e8, #ff80ab); }
+    #page4    { background: linear-gradient(135deg, #ffc2d1, #ff8fab); }
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+
+    /* Photo scrolling */
+    .scroll-box {
+      width: 95%;
+      max-width: 480px;
+      aspect-ratio: 16/9;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .photo-column {
+      display: flex;
+      flex-direction: column;
+      animation: scrollSmooth 50s linear infinite;
+    }
+
+    .photo-column img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    @keyframes scrollSmooth {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .text-box {
+      width: 90%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 25px;
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      width: 100%;
+      font-size: 14px;
+      color: white;
+      margin-top: 30px;
+      padding-bottom: 20px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .navBtn, #musicBtn, #loveClick {
+      position: absolute;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      border-radius: 50%;
+      padding: 12px;
+      cursor: pointer;
+      color: white;
+      transition: .25s;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      z-index: 20;
+      font-size: 22px;
+    }
+
+    #musicBtn { top: 18px; right: 18px; }
+    #loveClick { bottom: 80px; right: 16px; }
+    .nextBtn { bottom: 20px; right: 16px; }
+    .backBtn { bottom: 20px; left: 16px; }
+
+    .navBtn:hover, #musicBtn:hover, #loveClick:hover {
+      background: rgba(255,255,255,0.55);
+    }
+
+    /* ===== LOVE FALL ===== */
+    .heart {
+      position: fixed;
+      top: 0;
+      color: #ffdde1;
+      font-size: 20px;
+      animation: fall 6s linear forwards;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh); opacity: 1; }
+      100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    /* ===== PAGE 3 ===== */
+    #page3 .words {
+      width: 90%;
+      max-width: 600px;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.25);
+      color: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .videos {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    video {
+      width: 90%;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ===== PAGE 4 ===== */
+    .sticker-container {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .sticker {
+      background: rgba(255,255,255,0.25);
+      padding: 15px 35px;
+      border-radius: 50px;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      transition: .3s;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .sticker:hover { transform: scale(1.1); }
+
+    .photoSet {
+      width: 100%;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .photoSet img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+
+    /* Animasi */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ===== MEDIA QUERY HP ===== */
+    @media (max-width: 480px) {
+      #musicBtn, #loveClick, .navBtn {
+        transform: scale(.85);
+      }
+      .scroll-box { width: 100%; }
+      .text-box { padding: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginPage">
+    <h2>Login Dulu Sayang 💕</h2>
+    <input type="text" id="username" placeholder="Masukkan nama kamu"><br>
+    <input type="password" id="password" placeholder="Masukkan password"><br>
+    <button onclick="login()">Masuk</button>
+    <p id="errorMsg">Eits, bukan kamu nih 😘 coba lagi ya!</p>
+  </div>
+
+  <!-- PAGE 2 -->
+  <section id="mainPage">
+    <div class="container">
+
+      <div class="scroll-box">
+        <div class="photo-column">
+          <img src="1.jpg"><img src="2.jpg"><img src="3.jpg"><img src="4.jpg"><img src="5.jpg">
+          <img src="6.jpg"><img src="7.jpg"><img src="8.jpg"><img src="9.jpg"><img src="10.jpg">
+          <img src="11.jpg">
+
+          <!-- Ulang untuk scroll infinite -->
+          <img src="1.jpg"><img src="2.jpg"><img src="3.jpg"><img src="4.jpg"><img src="5.jpg">
+          <img src="6.jpg"><img src="7.jpg"><img src="8.jpg"><img src="9.jpg"><img src="10.jpg">
+          <img src="11.jpg">
+        </div>
+      </div>
+
+      <div class="text-box">
+        <h2>Buat Mas 💖</h2>
+        <p id="textDisplay">Setiap detik bersamamu terasa seperti mimpi yang indah...</p>
+      </div>
+
+    </div>
+
+    <audio id="loveMusic" loop>
+      <source src="Jaz - Bersamamu.mp3" type="audio/mp3">
+    </audio>
+
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+    <button id="loveClick" onclick="spawnBigHeart()">💗</button>
+
+    <button class="navBtn nextBtn" onclick="nextPage()">➡️</button>
+
+    <footer>© 2025 Bryan & Syafana 💞</footer>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3">
+
+    <div class="container" style="flex-direction: column;">
+      <div class="words">
+        <h2>💌 Untuk Kita 💌</h2>
+        <p>
+          Setiap kenangan yang kita buat adalah bagian dari cerita cinta yang tak akan pernah pudar.  
+          Tawa, air mata, pelukan — semuanya berharga.  
+          Aku ingin kita terus berjalan bersama, sampai waktu pun iri melihat kita. 💞
+        </p>
+      </div>
+
+      <div class="videos">
+        <video controls src="v1.mp4"></video>
+        <video controls src=""></video>
+      </div>
+    </div>
+
+    <button class="navBtn backBtn" onclick="backToMain()">⬅️</button>
+    <button class="navBtn nextBtn" onclick="nextToGallery()">➡️</button>
+
+    <footer>✨ Cerita Kita Selamanya ✨</footer>
+
+  </section>
+
+  <!-- PAGE 4 -->
+  <section id="page4">
+
+    <div class="container" style="flex-direction: column;">
+      <h2 style="color:white;">💞 Galeri Kita 💞</h2>
+
+      <div class="sticker-container">
+
+        <div class="sticker" onclick="togglePhotos('ceweSet')">👧 </div>
+        <div class="photoSet" id="ceweSet">
+          <img src="19.jpg"><img src="20.jpg"><img src="21.jpg"><img src="22.jpg"><img src="23.jpg">
+        </div>
+
+        <div class="sticker" onclick="togglePhotos('cowoSet')">👦 </div>
+        <div class="photoSet" id="cowoSet">
+          <img src="12.jpg"><img src="13.jpg"><img src="14.jpg"><img src="16.jpg"><img src="17.jpg"><img src="18.jpg">
+        </div>
+
+      </div>
+
+    </div>
+
+    <button class="navBtn backBtn" onclick="backToPage3()">⬅️</button>
+
+    <footer>Foto Kita 💕</footer>
+
+  </section>
+
+  <!-- ========= JAVASCRIPT ========= -->
+  <script>
+    function login() {
+      const pass = document.getElementById("password").value;
+      if (pass === "brayana") {
+        loginPage.style.display = "none";
+        mainPage.style.display = "block";
+        loveMusic.play();
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    /* MUSIC */
+    const music = document.getElementById("loveMusic");
+    let playing = true;
+
+    function toggleMusic() {
+      playing ? music.pause() : music.play();
+      playing = !playing;
+    }
+
+    /* TEXT CHANGER */
+    const texts = [
+      "Setiap detik bersamamu terasa seperti mimpi yang indah.",
+      "Kamu adalah alasanku tersenyum setiap hari.",
+      "Selamanya aku ingin bersamamu.",
+      "Kamu adalah cinta sejati dalam hidupku."
+    ];
+    let idx = 0;
+
+    setInterval(() => {
+      idx = (idx + 1) % texts.length;
+      textDisplay.textContent = texts[idx];
+    }, 5000);
+
+    /* LOVE FALL */
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 10 + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 400);
+
+    function spawnBigHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.textContent = "💗";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = "40px";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6000);
+    }
+
+    /* PAGE SWITCH */
+    function nextPage() {
+      mainPage.style.display = "none";
+      page3.style.display = "block";
+    }
+
+    function backToMain() {
+      page3.style.display = "none";
+      mainPage.style.display = "block";
+    }
+
+    function nextToGallery() {
+      page3.style.display = "none";
+      page4.style.display = "block";
+    }
+
+    function backToPage3() {
+      page4.style.display = "none";
+      page3.style.display = "block";
+    }
+
+    /* FOTO STICKER */
+    function togglePhotos(id) {
+      const set = document.getElementById(id);
+      set.style.display = set.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+
+</body>
+</html>
