@@ -70,14 +70,14 @@
 
     /* ===== HALAMAN LAIN ===== */
     section {
-      display: none;
-      text-align: center;
-      width: 100%;
-      min-height: 100vh;
-      padding-bottom: 80px;
-      position: relative;
-      transition: 0.4s;
-    }
+  display: none;
+  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 100px; /* memberi ruang agar konten tidak tertutup footer */
+  position: relative;
+  transition: 0.4s;
+}
 
     #mainPage { background: linear-gradient(135deg, #ffb6c1, #ff69b4); }
     #page3    { background: linear-gradient(135deg, #ffd6e8, #ff80ab); }
@@ -134,13 +134,17 @@
 
     /* FOOTER */
     footer {
-      text-align: center;
-      width: 100%;
-      font-size: 14px;
-      color: white;
-      margin-top: 30px;
-      padding-bottom: 20px;
-    }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  padding: 12px 0;
+  background: rgba(0, 0, 0, 0.2); /* agar footer terlihat */
+}
+
 
     /* ===== BUTTONS ===== */
     .navBtn, #musicBtn, #loveClick {
@@ -323,6 +327,9 @@
           Setiap kenangan yang kita buat adalah bagian dari cerita cinta yang tak akan pernah pudar.  
           Tawa, air mata, pelukan — semuanya berharga.  
           Aku ingin kita terus berjalan bersama, sampai waktu pun iri melihat kita. 💞
+          Jangan biarkan kita dikalahkan oleh ego kita masing-masing,apapun masalahnya kita hadapi bersama.
+          Aku mau kamu selamanya,jangan pernah berubah ya 
+          I'm falling you
         </p>
       </div>
 
@@ -391,18 +398,32 @@
 
     /* TEXT CHANGER */
     const texts = [
-      "Setiap detik bersamamu terasa seperti mimpi yang indah.",
-      "Kamu adalah alasanku tersenyum setiap hari.",
-      "Selamanya aku ingin bersamamu.",
-      "Kamu adalah cinta sejati dalam hidupku."
+      "Setiap detik bersamamu terasa seperti mimpi yang indah",
+      "Kamu adalah alasanku tersenyum setiap hari",
+      "Aku sangat bersyukur memiliki kamu",
+      "Selamanya aku ingin bersamamu",
+      "Kamu adalah cinta sejati dalam hidupku",
+      "Jangan pernah berubah ya dari awal hingga akhir",
+      "Hingga kita bisa pulang dirumah yang sama",
+      "Jangan pernah libatin orang lain dihubungan kita",
+      "Baik buruknya kita hanya kita yang tau",
+      "Kamu hebat sudah mencuri hatiku",
+      "Jangan pernah merasa diri kamu kurang ya",
+      "Bagi aku kamu gada kurangnya ko",
+      "Kamu sudah terlalu sempurna buat aku",
+      "I already know that you are the best person for me",
+      "Kamu terlalu sempurna buat aku yang masih banyak kurangnya",
+      "You are a great guy, patient, caring and loving",
+      "You have been too patient with all my traits, thank you darling",
+      "Tetap jadi cowo yg aku kenal ya"
     ];
     let idx = 0;
 
     setInterval(() => {
+      
       idx = (idx + 1) % texts.length;
       textDisplay.textContent = texts[idx];
     }, 5000);
-
     /* LOVE FALL */
     setInterval(() => {
       const heart = document.createElement("div");
